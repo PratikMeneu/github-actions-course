@@ -14,6 +14,7 @@ jobs:
         runs-on: windows-latest
         steps:
             - name: show_os
+              shell: bash # we have to use this beacuse by default windows won't show OS using $RUNNER_OS, we have to explicitly define the shell type.
               run: |
                 echo "This job is running on a windows runner"
                 echo "Runner OS: $RUNNER_OS"
