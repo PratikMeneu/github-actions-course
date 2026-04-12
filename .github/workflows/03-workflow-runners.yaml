@@ -3,7 +3,7 @@ on: workflow_dispatch
 
 jobs:
     ubuntu-echo:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-latest # this is a runner, a runner is a VM on which jobs run.
         steps:
             - name: show_os
               run: |

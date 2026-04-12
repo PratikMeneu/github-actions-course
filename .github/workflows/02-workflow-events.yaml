@@ -1,7 +1,7 @@
 name: 02 - Workflow Events
 on: 
-    pull_request:
-    workflow_dispatch:
+    pull_request:       # a pull_request event
+    workflow_dispatch:  # a workflow_dispatch event, other examples of events:- push, schedule, workflow_call etc.
 
 jobs:
     echo:
