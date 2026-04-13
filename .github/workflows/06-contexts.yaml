@@ -27,3 +27,6 @@ jobs:
                 MY_VAR: "hello world"
               run: |
                 echo "repository variable : $MY_VAR"
+            - name: Retrieve Variable from Variables stored in Github UI
+              run: |
+                echo "This variable value is comming from github UI, variable value : ${{vars.MY_VAR_UI}}"
