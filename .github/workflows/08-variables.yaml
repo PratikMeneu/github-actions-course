@@ -1,11 +1,24 @@
+## Single Workflow -
+## Multiple Workflows -
+    
+    ## Variable can be fetched in a single workflow using "env" context.
+    ## In a Multiple workflows scenario variables can be fetched using "vars" context.
+
+    ## Single workflow variables are set at levels:- workflow, jobs and steps
+        # If same variables are defined at workflow, job and step level, then Step variables will take precedence over Job variables
+        # and Job variables will take precedence over workflow variables.  
+
+    ## Multiple Workflows variables are set at levels: Organization, Repository and Environment.
+
 name: 08 - Using Variables
 on:
-    push:
+    # push:
     workflow_dispatch:
 
 env:
     WORKFLOW_VAR: 'I am a workflow environment variable'
     OVERWRITTEN: 'I will be overwritten'
+    UNDEFINED_VAR_WITH_DEFAULT: ${{ vars.UNDEFINED_VAR || 'default undefined value' }}
 
 jobs:
     echo:
@@ -30,16 +43,37 @@ jobs:
                 OVERWRITTEN: 'I have been overwritten at the step level'
               run: |
                 echo "Step env var: ${{ env.OVERWRITTEN }}"
+
+## Begin - Multiple Workflows Variables use case - context "vars".
+    echo2:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Print Variables
+              run: |
+                echo "Repository Variable: ${{ vars.REPOSITORY_VAR }}"
                 
+    echo-prod:
+        runs-on: ubuntu-latest
+        environment: prod
+        steps:
+            - name: Print Prod Env Variables
+              run: |
+                echo "Repository Variable: ${{ vars.REPOSITORY_VAR }}"
+                echo "Environment Variable: ${{ vars.TARGET_VAR }}"
+                echo "Overwritten Variable: ${{ vars.OVERWRITTEN_VAR }}"
 
-## Single Workflow -
-## Multiple Workflows -
-    
-    ## Variable can be fetched in a single workflow using "env" context.
-    ## In a Multiple workflows scenario variables can be fetched using "vars" context.
+    echo-staging:
+        runs-on: ubuntu-latest
+        environment: staging
+        steps:
+            - name: Print Prod Env Variables
+              run: |
+                echo "Repository Variable: ${{ vars.REPOSITORY_VAR }}"
+                echo "Environment Variable: ${{ vars.TARGET_VAR }}"
 
-    ## Single workflow variables are set at levels:- workflow, jobs and steps
-        # If same variables are defined at workflow, job and step level, then Step variables will take precedence over Job variables
-        # and Job variables will take precedence over workflow variables.  
-
-    ## Multiple Workflows variables are set at levels: Organization, Repository and Environment.
+    echo-undefined:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Print undefined Variables
+              run: |
+                echo "Github Organization Variable: ${{ env.UNDEFINED_VAR_WITH_DEFAULT }}"
