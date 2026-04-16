@@ -9,6 +9,8 @@
         # and Job variables will take precedence over workflow variables.  
 
     ## Multiple Workflows variables are set at levels: Organization, Repository and Environment.
+        # If the same variables are defined at organization, repository and environment level, then Environment variables will take
+        # precedence over Repository variables and Repository variables will take precedence over Organization variables.
 
 name: 08 - Using Variables
 on:
