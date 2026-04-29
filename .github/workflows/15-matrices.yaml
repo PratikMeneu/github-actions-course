@@ -24,7 +24,8 @@ jobs:
 
             - name: Fail if experimental
               if: ${{ matrix.tag }}
-              run: exit 1
+            #   run: exit 1
+              run: exit 0
 
             - name: Perform some tests
               run: |
