@@ -61,6 +61,9 @@ jobs:
 
                     - opacity: 50
 
+                exclude:
+                  - opacity: 75
+
         steps:
             - name: Dumy step
               run: echo "${{ matrix.color }}-${{ matrix.shape }}-${{ matrix.size }}-${{ matrix.opacity }}"
